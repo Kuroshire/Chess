@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30488a3f65914614d98d82a02eb852a1, type: 3}
+  m_Name: Constant
+  m_EditorClassIdentifier: 
+  whiteTile: {r: 0.87843144, g: 0.87843144, b: 0.87843144, a: 0}
+  blackTile: {r: 0.20000002, g: 0.20000002, b: 0.20000002, a: 0}
+  highlightedTile: {r: 0.835173, g: 0.9607843, b: 0.2941177, a: 1}
+  hightlightedPiece: {r: 0.69803923, g: 0.023529414, b: 0.2901961, a: 0}
