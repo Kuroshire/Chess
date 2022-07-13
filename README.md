@@ -5,6 +5,11 @@ Logs:
 09/07/22 : (time spent: ~4h)
 Made the board as well as a tile/piece highlight system to show the player which tile of the board he is currently on
 
+13/07/22 : 
+Added highlight effect. 
+Started making piece specific classes and their prefabs.
+Started the piece selector system.
+
 Left to do: (Basic)
 Make different pieces and their moves
 Make a turn based system and eventually a timer to go with it as well as a turn counter

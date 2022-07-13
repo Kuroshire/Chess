@@ -3,9 +3,8 @@ using UnityEngine;
 
 public class SOConstant : ScriptableObject
 {
-    public Color whiteTile;
-    public Color blackTile;
-    public Color highlightedTile;
-    public Color hightlightedPiece;
-
+    private Color whiteTile;
+    private Color blackTile;
+    private Color highlightedTile;
+    private Color hightlightedPiece;
 }
