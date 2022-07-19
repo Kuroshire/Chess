@@ -33,6 +33,9 @@ public class PieceSelector : MonoBehaviour
     }
 
     public static void setSelectedPiece(Piece selected){
+        if(INSTANCE.selection){
+            INSTANCE.selection.undoSelectPiece();
+        }
         //check if selectable before.
         INSTANCE.selection = selected;
     }

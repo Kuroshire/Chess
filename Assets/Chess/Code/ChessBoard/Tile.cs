@@ -5,12 +5,16 @@ using UnityEngine;
 public class Tile : MonoBehaviour
 {
     Color tileColor;
-    Piece currentPiece;
+    SpriteRenderer spr;
 
     (int, int) position;
+    
+    Piece currentPiece;
+
 
     private void Start() {
-        tileColor = this.gameObject.GetComponent<SpriteRenderer>().color;
+        spr = this.gameObject.GetComponent<SpriteRenderer>();
+        tileColor = spr.color;
     }
 
     private void OnMouseEnter() {
@@ -19,11 +23,43 @@ public class Tile : MonoBehaviour
 
     private void OnMouseExit() {
         stopHighlightTile();
+
     }
 
+
+    /*
+    switchIsSelected ->
+        isSelected ?
+            selectPiece -> 
+                setSelectPiece -> 
+                    selection?
+                        undoSelectPiece
+                    :
+            : undoSelectPiece -> 
+                setSelectPiece -> 
+                    selection?
+                        cancelSelection
+                    :
+    */
     private void OnMouseDown() {
-        if(currentPiece)
-            PieceSelector.setSelectedPiece(currentPiece);
+
+        //need to check which player turn it is then consider pieces of the enemy color as unselectable
+
+        //tile isn't empty
+        if(currentPiece) {
+            //case : select a piece on the board (tile isn't empty)
+            currentPiece.switchIsSelected();
+        } 
+        //tile is empty
+        else {
+            //a piece is selected
+            if(PieceSelector.getSelectedPiece()){
+                //case : move the selected piece to this tile (a piece is selected + tile is empty/tile store an enemy unit + authorized move)
+
+                //case : cancel selection (a piece is selected + tile store an ally/not an authorized move)
+                PieceSelector.getSelectedPiece().undoSelectPiece();
+            }
+        }
     }
 
 
@@ -35,26 +71,26 @@ public class Tile : MonoBehaviour
             currentPiece.highlightPiece();
             return;
         }
-        this.gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
+        spr.color = Color.blue;
     }
 
     //undo the tile highlight
     void stopHighlightTile(){
         if(currentPiece){
-            currentPiece.stopHighlightPiece();
+            currentPiece.stopHighlightSelect();
             return;
         }
-        this.gameObject.GetComponent<SpriteRenderer>().color = tileColor;
+        spr.color = tileColor;
     }
 
     //highlight the tile if the chosen piece can move onto it.
-    public void moveHighlight(){
-
+    public void allowedMoveOn(){
+        spr.color = Color.green;
     }
 
-    //undo the tile highlight from moveHighlight. Called when the player confirm the move or when he decides
-    public void stopMoveHighlight(){
-
+    //undo the tile highlight from allowedMoveOn. Called when the player confirm the move or when he decides
+    public void allowedMoveOff(){
+        spr.color = Color.green;
     }
 
     //endregion -------------------------------------------------------------------------------------------------------------------------------------

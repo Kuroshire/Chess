@@ -10,6 +10,8 @@ public class ChessBoard : MonoBehaviour
     List<Piece> whitePieces = new List<Piece>();
     List<Piece> blackPieces = new List<Piece>();
 
+
+
     [SerializeField] GameObject whiteTile;
     [SerializeField] GameObject blackTile;
 
@@ -33,7 +35,7 @@ public class ChessBoard : MonoBehaviour
         
     }
 
-    public void createBoard(){
+    void createBoard(){
         
         for(int i = 0; i < 8; i++){
             for(int j = 0; j < 8; j++){
@@ -61,7 +63,7 @@ public class ChessBoard : MonoBehaviour
         //print(board);
     }
 
-    public void createPieces(){
+    void createPieces(){
         try{
             //instantiate Kings
             instantiatePiece(4, 0, references.BlackKing);
@@ -119,5 +121,7 @@ public class ChessBoard : MonoBehaviour
         board.getTile(i, j).setPiece(newPiece.GetComponent<Piece>());
         newPiece.transform.parent = piecesParent;
     }
+
+
 
 }

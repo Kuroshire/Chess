@@ -29,6 +29,8 @@ public class Piece : MonoBehaviour
     Piece_Type type;
     Piece_Color color;
 
+    bool isSelected = false;
+
 
 
     // Start is called before the first frame update
@@ -38,13 +40,53 @@ public class Piece : MonoBehaviour
         highligth.changeColor(Color.blue);
     }
 
+
+    //region HIGHLIGHT ------------------------------------------------------------------------------------------------------------------------------
+
     public void highlightPiece(){
         highligth.turnOn();
     }
 
-    public void stopHighlightPiece(){
+    //use when you want to turn off the highlight
+    void stopHighlightPiece(){
         highligth.turnOff();
     }
+
+    //use when you want to turn off the highlight if the piece isnt selected
+    public void stopHighlightSelect(){
+        if(isSelected)
+            return;
+        highligth.turnOff();
+    }
+
+    //region SELECTION ------------------------------------------------------------------------------------------------------------------------------
+
+    public void selectPiece(){
+        isSelected = true;
+        PieceSelector.setSelectedPiece(this);
+        showAllowedMoves();
+        highlightPiece();
+    }
+
+    //called by cancelSelection
+    public void undoSelectPiece(){
+        isSelected = false;
+        PieceSelector.cancelSelection();
+        hideAllowedMoves();
+        stopHighlightPiece();
+    }
+
+    public void switchIsSelected(){
+        isSelected = !isSelected;
+
+        if(isSelected){
+            selectPiece();
+        } else {
+            undoSelectPiece();
+        }
+    }
+
+    //region ALLOWED MOVES --------------------------------------------------------------------------------------------------------------------------
 
     public List<Tile> getAllowedMoves(){
         return allowedMoves;
@@ -56,6 +98,18 @@ public class Piece : MonoBehaviour
 
     public void emptyAllowedMoves(){
         allowedMoves.Clear();
+    }
+
+    public void showAllowedMoves(){
+        foreach(Tile tile in allowedMoves){
+            tile.allowedMoveOn();
+        }
+    }
+
+    public void hideAllowedMoves(){
+        foreach(Tile tile in allowedMoves){
+            tile.allowedMoveOff();
+        }
     }
 
     //region GETTERS & SETTERS ----------------------------------------------------------------------------------------------------------------------
